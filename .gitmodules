@@ -1,0 +1,3 @@
+[submodule "lib/websync"]
+	path = lib/websync
+	url = https://github.com/Davidiusdadi/websync
