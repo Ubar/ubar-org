@@ -1,0 +1,68 @@
+* Einsatzbereiche
+** Python
+- Verwaltung des Git-Repositorys
+- Parsen der org-Files
+- Füllen des Redis-Caches
+- Lesen aus dem Redis-Cache in die Datei (zyklisch, explizit?)
+** Java
+- Websockets
+- Verwaltung der Zugriffe und schreiben der Änderungen in Redis
+** Git
+** Javascript
+** Redis
+* Prozess
+** Einloggen
+** Textdokument auswählen
+** Textdokument parsen
+** Textdokument auf Clientseite darstellen
+** Text via JS Layouten
+** Text bearbeiten
+** Text während des Bearbeitens von JS layouten lassen
+** Änderungen via Websocket (Syncpath) übertragen
+** Änderungen speichern
+** Änderungen an alle Teilnehmer verteilen
+* Features für v0.1
+** Editierbares Textfeld
+JavaScipt, welches ein Textfeld generiert, dass wie ein <textarea>
+genutzt werden kann, allerdings mit <div>'s für Zeilen und <span>'s
+für Wörter und Zeichen. Cursor ist ein "blinkender Rahmen".
+** Sync mehrerer Instanzen
+Das textfeld soll zwischen mehreren Browser-Sitzungen syncronisiert
+werden.
+- Websockets
+** Benutzerregistrierung
+** Benutzerverwaltung
+** Dokumente Benutzern zuordnen
+** Unterschiedliche Benutzer bearbeiten ein Dokument
+- zeitgleich
+* Potenzielle Probleme
+** Differenz zwischen Syncpath und Highlight
+Ein Text, der an Leerzeichen getrennt ist (damit 2 verschiedene
+Sync-ID's besitzt und in 2 verschiedene <span>'s aufgeteilt ist) muss
+im Browser als ganzes ge-Highlighted werden. Wir haben nun 2
+unterschiedliche Versionen des DOM-Baumes (unserer div-span-Struktur)
+auf Server- und Clientseite.
+*** Potezielle Lösung
+Das erstellen neuer Syncpaths auf der Clientseite unterstützen.
+Clientseitig wird dann quasi eine neue "Übermenge" an den Server
+übermittelt, die aus den bekannten Untermengen der beiden "alten"
+<span>'s besteht. Eventuell muss dafür das Syncpath-Protokoll
+erweitert werden. Der Serverseitige Dokumentbaum wird dann angepasst
+und die Struktur in der Datenbank eingefügt. Die Datenbank muss
+dementsprechend so konstruiert sein, dass kein "UPDATE" bei einer
+solchen Sitatuin nötig ist, sondern lediglich ein "INSERT".
+Bespiel:
+: INSERT INTO span_beziehungen
+: ubar_span=new_span_id
+: child_span=old_span_id_1
+: INSERT INTO span_beziehungen
+: ubar_span=new_span_id
+: child_span=old_span_id_2
+Erstellt einen Unterbaum der Struktur
+- new_span_id
+  - old_span_id_1
+  - old_span_id_2
+Das Verfahren wäre beliebig verschachtelbar.
+* Features generell
+** simultane Edits
+** Git Export
