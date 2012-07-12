@@ -1,0 +1,38 @@
+@CHARSET "ISO-8859-1";
+
+* {
+	font-size: 90%;	
+	font-family: "Courier New";
+	border: 1px solid gray;
+}
+
+
+body, div, span {
+	padding: 0px;
+	margin: 0px;
+}
+
+ul {
+	padding-left: 2em;
+}
+
+
+.uberdoc {
+	cursor: text;
+}
+
+.uberrow {
+	border: 1px solid black;
+}
+
+span {
+	border: 1px solid yellow;
+}
+
+span:focus {
+	background-color: red;
+}
+
+.ubarcurser {
+	border-right: 1px solid red;
+}

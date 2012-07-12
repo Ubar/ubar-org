@@ -1,3 +1,6 @@
 [submodule "lib/websync"]
 	path = lib/websync
 	url = https://github.com/Davidiusdadi/websync
+[submodule "lib/JSWebSync"]
+	path = lib/JSWebSync
+	url = https://github.com/Bodo06/JSWebSync.git
