@@ -66,3 +66,11 @@ Das Verfahren wäre beliebig verschachtelbar.
 * Features generell
 ** simultane Edits
 ** Git Export
+* Adressierung
+|-----------------------------------|
+| Adressierung der Inhalte          |
+|-----------------------------------|
+| Wrapper div-ID's --> Zeile/Spalte |
+|-----------------------------------|
+| div's / span's                    |
+|-----------------------------------|
