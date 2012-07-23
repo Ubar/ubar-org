@@ -23,16 +23,29 @@
 					var curpartext = curparent.text();
 
 					var newtext = tmptext + curpartext;
-					curparent.html(newtext);
+					if(0 === newtext.length) {
+						curparent.remove();
+					} else {
+						var mergedoffset = tmptext.length+offset
+						curparent.html(newtext);
+						var node = curparent.get(0);
+						range.setStart(node.childNodes[0],mergedoffset);
+						selection.removeAllRanges();
+						selection.addRange(range);
+					}
+					
+					
+					// cursor verschiebt sich wenn cursor und curserspan den selben parent haben und der cursorspan gel;scht wirt
 				}
 
 				if (event.keyCode === 32) {
 
-					/*if(span.attr("id") == "ubarcursor") {
+					if(span.attr("id") == "ubarcursor") {
 						var cursorcontent = span.html();
-						span.parent().before($('<span>' + cursorcontent + '</span>'));
-						$('#ubarcursor').detach();
-					}*/
+						//span.parent().before($('<span>' + cursorcontent + '</span>'));
+						//$('#ubarcursor').detach();
+						alert("detach");
+					}
 					
 					var space = $('<span class="foo">_</span>');
 					if (span.text().length > 1) {
