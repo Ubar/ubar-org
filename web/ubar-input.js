@@ -18,14 +18,14 @@
 					var cursor = $("#ubarcursor");
 					var curparent = cursor.parent();
 
-					var tmptext = cursor.text();
-					cursor.detach();
+					var tmptext = cursor.text().replace("&#x200b;","");
+					cursor.remove();
 					var curpartext = curparent.text();
 
 					var newtext = tmptext + curpartext;
 					if(0 === newtext.length) {
 						curparent.remove();
-					} else {
+					} else if( cursor.get(0) == span.get(0) ) {
 						var mergedoffset = tmptext.length+offset
 						curparent.html(newtext);
 						var node = curparent.get(0);
@@ -39,12 +39,14 @@
 				}
 
 				if (event.keyCode === 32) {
-
 					if(span.attr("id") == "ubarcursor") {
-						var cursorcontent = span.html();
-						//span.parent().before($('<span>' + cursorcontent + '</span>'));
-						//$('#ubarcursor').detach();
-						alert("detach");
+						var cursorcontent = span.text().replace("&#x200b;","");
+						var cursorcontainer = span.parent();
+						span.remove();
+						span = cursorcontainer;
+						var cursorcontainercontent = cursorcontainer.text();
+						cursorcontainer.html(cursorcontent+cursorcontainercontent);
+						range.setStart(cursorcontainer.get(0).childNodes[0],cursorcontent.length);
 					}
 					
 					var space = $('<span class="foo">_</span>');
@@ -52,13 +54,17 @@
 						var right_span = $('<span>'
 								+ span.text().substring(range.startOffset,
 										span.text().length) + '</span>');
-						span.text(span.text().substring(0, range.startOffset));
+						var shriktext = span.text().substring(0, range.startOffset);
+						//alert(shriktext)
+						span.text(shriktext);
 					}
 					span.after(space);
 					space.after(right_span);
 					
+					if( span.text().length < 1 ) //span seems to be empty even if length is  0.maby there hare hidden characters
+						span.remove();
 					
-					var newcursor = $('<span id="ubarcursor">&#x200b;<span>');
+					var newcursor = $('<span id="ubarcursor">&#x200b;</span>');
 					right_span.prepend(newcursor);
 
 					selection.removeAllRanges();
