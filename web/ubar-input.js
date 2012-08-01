@@ -5,19 +5,23 @@
             this.each(function() {
                 $(this).attr('contentEditable', true);
             });
+            var ranges = Array();
+            // load websocket library and fetch document
+            if(ranges.length === 0) {
+                var range = document.createRange();
+                range.setStartBefore(this.get(0).firstChild);
+                range.setEndAfter(this.get(0).lastChild);
+                ranges.push(range);
+            }
             this.on('keydown', function(event) {
-                
+                // split on borders
+                alert(ranges[0]);
             });
 
         },
         hide : function() {
         },
     };
-
-    var settings = $.extend( {
-        'max_sync_width' : 20;
-    }, options);
-
 
     $.fn.ubarinput = function(method) {
         if (methods[method]) {
